@@ -1,3 +1,4 @@
+const { combineTableNames } = require("sequelize/lib/utils")
 const helper = require("../helper")
 const service = require("../service")
 
@@ -48,5 +49,30 @@ controller.getUser = async ( req, res ) => {
     }
 }
 
+controller.putUserByid = async (req, res) => {
+    try {
+        const { id_user } = req.params;
+        const { firstName = null, lastName = null, userName = null } = req.body
+
+        // update to databese with params id
+        const result = await service.updateUserByid(id_user, firstName, lastName, userName);
+
+        res.status(200).json({message: 'Berhasil', data: result})
+    } catch (error) {
+        helper.controllerErrorHandler(error,res)
+    }
+}
+
+controller.deleteUserByid = async ( req, res ) => {
+    try {
+        const { id_user } = req.params;
+        // delete user in database
+        const result = await service.deleteUserByid(id_user);
+
+        res.status(200).json({message: 'Berhasil', data: result})
+    } catch (error) {
+        helper.controllerErrorHandler(error,res);
+    }
+} 
 
 module.exports = controller
