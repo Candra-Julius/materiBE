@@ -1,5 +1,12 @@
 const express = require('express')
 const route  = require('./src/route')
+const db = require('./src/config/database/database');
+
+
+db.authenticate().then(() => {
+    console.log("database connnected");
+})
+
 const app = express()
 app.use(express.json())
 app.use('/api', route)

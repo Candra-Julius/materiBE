@@ -5,5 +5,6 @@ const middlewere = require('../middlewere')
 
 route.get('/panggilNama/:lastName', controller.panggilNama)
 route.post('/registrasi', middlewere.validasiPassword, controller.registrasi)
+route.get('/user/:id_user', controller.getUser);
 
 module.exports = route
